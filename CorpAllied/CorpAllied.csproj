@@ -172,7 +172,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Admin\AdminPanel.aspx" />
+    <Content Include="Admin\Dashboard.aspx" />
     <Content Include="Admin\Login.aspx" />
     <Content Include="Company\Default.aspx" />
     <Content Include="Company\NewJob.aspx" />
@@ -277,6 +277,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Company\Company.Master" />
+    <Content Include="Admin\Admin.Master" />
     <None Include="Scripts\jquery-1.6.4-vsdoc.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
@@ -304,12 +305,19 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Admin\AdminPanel.aspx.cs">
-      <DependentUpon>AdminPanel.aspx</DependentUpon>
+    <Compile Include="Admin\Admin.Master.cs">
+      <DependentUpon>Admin.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Admin\AdminPanel.aspx.designer.cs">
-      <DependentUpon>AdminPanel.aspx</DependentUpon>
+    <Compile Include="Admin\Admin.Master.designer.cs">
+      <DependentUpon>Admin.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Dashboard.aspx.cs">
+      <DependentUpon>Dashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Dashboard.aspx.designer.cs">
+      <DependentUpon>Dashboard.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>

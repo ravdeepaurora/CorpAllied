@@ -39,7 +39,7 @@ namespace CorpAllied.Admin
             if (ds.Tables[0].Rows.Count>0)
             {
                 Session["Username"] = ds.Tables[0].Rows[0]["Username"].ToString();
-                Response.Redirect("AdminPanel.aspx");
+                Response.Redirect("Dashboard.aspx");
             }
         }
     }
