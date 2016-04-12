@@ -1,0 +1,228 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="User.master.cs" Inherits="CorpAllied.User.User" %>
+
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+        <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+        <link href="../css/UserDefault.css" rel="stylesheet" />
+        <script type="text/javascript">
+            
+            function updatestatusPost() {
+                <%-- btnPostStatus_Click(new object(),new EventArgs());
+                         alert(document.getElementById("<%=btnHidden.ClientID"%>)); --%>
+                var textstatus=document.getElementById("<%=txtPostStatus.ClientID%>").value;
+                if ((textstatus != "") || (textstatus != null)) {
+                    document.getElementById("<%=txtPostStatusTxt.ClientID %>").value = document.getElementById("<%=txtPostStatus.ClientID%>").value;
+                    document.getElementById("<%=btnHidden.ClientID%>").click();
+                }
+            }
+            function runFileUploadPost() {
+                document.getElementById("<%=fileupldStatusPost.ClientID%>").click();
+            }
+            function RemoveFilePost() {
+                var imgPost = document.getElementById('image_upload_previewPost');
+                document.getElementById("<%=fileupldStatusPost.ClientID %>").value = "";
+            imgPost.style.display = "none";
+            var listRemovePost = document.getElementById('RemoveUploadedFilePost');
+            listRemovePost.style.display = "none";
+        }
+            function ShowFilePost() {
+                var Filename = document.getElementById("<%=fileupldStatusPost.ClientID %>").value;
+                if (Filename.indexOf('.jpg') > -1 || Filename.indexOf('.JPG') > -1) {
+                readURL1(<%=fileupldStatusPost.ClientID %>);
+                document.getElementById("<%=lblFileUploadStatePost.ClientID%>").innerHTML = Filename;
+                var imgPost = document.getElementById('image_upload_previewPost');
+                imgPost.style.display = "inline";
+                var listRemovePost = document.getElementById('RemoveUploadedFilePost');
+                listRemovePost.style.display = "inline";
+            }
+            else {
+                document.getElementById("<%=lblFileUploadStatePost.ClientID%>").innerHTML = "";
+                document.getElementById("<%=fileupldStatusPost.ClientID %>").value = null;
+                var imgPost = document.getElementById('image_upload_previewPost');
+                imgPost.style.display = "none";
+            }
+        }
+
+        function readURL1(input) {
+            if (input.files && input.files[0]) {
+                var reader1 = new FileReader();
+                reader1.onload = function (e) {
+                    $('#image_upload_previewPost').attr('src', e.target.result);
+                    $('#image_upload_previewPost').css({ "height": "60px", "width": "100px" });
+                }
+                reader1.readAsDataURL(input.files[0]);
+            }
+        }
+            </script>
+        <asp:ContentPlaceHolder ID="head" runat="server">
+
+        </asp:ContentPlaceHolder>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+		<title>CorpAllied Portal</title>
+		<meta name="generator" content="Bootply" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link href="../css/bootstrap.min.css" rel="stylesheet">
+		<!--[if lt IE 9]>
+			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+		<link href="../css/styles.css" rel="stylesheet">
+	</head>
+	<body>
+        <form id="form1" runat="server" method="post">
+            <asp:FileUpload runat="server" ID="fileupldStatusPost" style="visibility:hidden" onchange="ShowFilePost();return false" />
+            <asp:Button ID="btnHidden" runat="server" OnClick="btnPostStatus_Click" style="visibility:hidden" ValidationGroup="PostStatusValidation" CausesValidation="true"/>  
+            <asp:TextBox ID="txtPostStatusTxt" runat="server" style="visibility:hidden" ValidationGroup="PostStatusValidation"></asp:TextBox>
+            <asp:RequiredFieldValidator ID="rfvtxtPostStatusTxt" runat="server" InitialValue="" ControlToValidate="txtPostStatusTxt" ValidationGroup="PostStatusValidation" Text=""></asp:RequiredFieldValidator>
+            <asp:ScriptManager runat="server" ID="scriptmanager1" EnablePageMethods="true"></asp:ScriptManager>
+<div class="wrapper">
+    <div class="box">
+        <div class="row row-offcanvas row-offcanvas-left">
+                      
+          
+            <!-- sidebar -->
+            <div class="column col-sm-2 col-xs-1 sidebar-offcanvas" id="sidebar">
+              
+              	<ul class="nav">
+          			<li><a href="#" data-toggle="offcanvas" class="visible-xs text-center"><i class="glyphicon glyphicon-chevron-right"></i></a></li>
+            	</ul>
+               
+                <ul class="nav hidden-xs" id="lg-menu">
+                    <li><asp:Timer runat="server" ID="Timer1" Interval="1000" OnTick="Timer1_Tick"></asp:Timer>
+                        <asp:UpdatePanel runat="server" ID="upCurrentTime" UpdateMode="Always">
+                        <ContentTemplate>
+                        <asp:Label runat="server"  ID="lblTime" Text="Time"></asp:Label>
+                        </ContentTemplate>
+                        <Triggers>
+                        <asp:AsyncPostBackTrigger ControlID="Timer1" EventName="Tick" />
+                        </Triggers>
+                        </asp:UpdatePanel>
+                        
+                    </li>
+                    <li><br /></li>
+                    <li><u>Welcome <asp:Label ID="lblUserName" runat="server" Text="UserName"></asp:Label></u></li>
+                    <li><br /></li>
+                    <li class="active"><a href="Friends.aspx"><i class="glyphicon glyphicon-list-alt"></i> Friends</a></li>
+                    <li><a href="Jobs.aspx"><i class="glyphicon glyphicon-list"></i> Jobs</a></li>
+                    <li><a href="Inbox.aspx"><i class="glyphicon glyphicon-envelope"></i> Inbox</a></li>
+                    <li><a href="NewBlogEvent.aspx"><i class="glyphicon glyphicon-list-alt"></i> Create New Event\Blog</a></li>
+                    <li><a href="javascript:window.location.href=window.location.href"><i class="glyphicon glyphicon-refresh"></i> Refresh</a></li>
+                    
+                </ul>
+                <ul class="list-unstyled hidden-xs" id="sidebar-footer">
+                    <li>
+                      <a href="http://www.bootply.com"><h3>CorpAllied</h3> <i class="glyphicon glyphicon-heart-empty"></i> Brought By Ravdeep Aurora</a>
+                    </li>
+                </ul>
+              
+              	<!-- tiny only nav-->
+              <ul class="nav visible-xs" id="xs-menu">
+                  	<li><a href="Default.aspx#featured" class="text-center"><i class="glyphicon glyphicon-list-alt"></i></a></li>
+                    <li><a href="Default.aspx#stories" class="text-center"><i class="glyphicon glyphicon-list"></i></a></li>
+                  	<li><a href="Inbox.aspx" class="text-center"><i class="glyphicon glyphicon-envelope"></i></a></li>
+                    <li><a href="javascript:window.location.href=window.location.href" class="text-center"><i class="glyphicon glyphicon-refresh"></i></a></li>
+                </ul>
+              
+            </div>
+            <!-- /sidebar -->
+          
+            <!-- main right col -->
+            <div class="column col-sm-10 col-xs-11" id="main">
+                
+                <!-- top nav -->
+              	<div class="navbar navbar-blue navbar-static-top">  
+                    <div class="navbar-header">
+                      <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle</span>
+                        <span class="icon-bar"></span>
+          				<span class="icon-bar"></span>
+          				<span class="icon-bar"></span>
+                      </button>
+                      <a href="Default.aspx" class="navbar-brand logo">C</a>
+                  	</div>
+                  	<nav class="collapse navbar-collapse" role="navigation">
+                    <div class="navbar-form navbar-left">
+                        <div class="input-group input-group-sm" style="max-width:360px;">
+                          <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srchterm" runat="server" onkeydown="if (event.keyCode == 13)
+                        document.getElementById('btnSearch').click()">
+                          <div class="input-group-btn">
+                            <button class="btn btn-default" type="submit" runat="server" ID="btnSearch" onserverclick="btnSearch_ServerClick"><i class="glyphicon glyphicon-search"></i></button>
+                          </div>
+                        </div>
+                    </div>
+                    <ul class="nav navbar-nav">
+                      <li>
+                        <a href="Default.aspx"><i class="glyphicon glyphicon-home"></i> Home</a>
+                      </li>
+                      <li>
+                        <a href="#postModal" role="button" data-toggle="modal"><i class="glyphicon glyphicon-plus"></i> Post</a>
+                      </li>
+                      <li>
+                        <a href="#"><span class="badge">Profile:User</span></a>
+                      </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right navbar-marginright">
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" style="padding-top:10px;padding-bottom:0px" data-toggle="dropdown"><img onerror="this.src='http://lorempixel.com/140/140/'" src='ImageHandle.ashx?pEmail=<%=Session["Username"].ToString() %>' style="max-height:30px;max-width:30px;"/></a>
+                        <ul class="dropdown-menu">
+                          <li><a href="Blogs.aspx">Blogs</a></li>
+                          <li><a href="Events.aspx">Events</a></li>
+                          <li><a href="Profile.aspx">Profile</a></li>
+                          <li><a href="Settings.aspx">Settings</a></li>
+                          <li><asp:LinkButton runat="server" ID="lnkbtnLogout" Text="Log Out" OnClick="lnkbtnLogout_Click"></asp:LinkButton> </li>
+                        </ul>
+                      </li>
+                    </ul>
+                  	</nav>
+                </div>
+                <!-- /top nav -->
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                
+            </asp:ContentPlaceHolder>
+         </div>
+         <!-- /main -->
+        </div>
+    </div>
+</div>
+            <!--post modal-->
+<div id="postModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+  <div class="modal-content">
+      <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			Update Status
+      </div>
+      <div class="modal-body">
+          <div class="form center-block">
+            <div class="form-group">
+              <asp:TextBox ID="txtPostStatus" ValidationGroup="PostStatusValidation" CssClass="form-control input-lg" autofocus="" placeholder="What do you want to share?" TextMode="MultiLine" runat="server"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="rfvtxtPostStatus" runat="server" InitialValue="" ControlToValidate="txtPostStatus" Text="" ValidationGroup="PostStatusValidation"></asp:RequiredFieldValidator>
+            </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+          <div>
+          <button class="btn btn-primary btn-sm" data-dismiss="modal" aria-hidden="true" ID="btnPostStatusPost"   onclick="updatestatusPost()">Post</button>
+            <ul class="pull-left list-inline">
+            <li><a class="onmousehover" onclick="runFileUploadPost();return false"><i class="glyphicon glyphicon-camera"></i></a></li>
+                                       <li><asp:Label ID="lblFileUploadStatePost" runat="server" style="visibility:hidden;position:fixed"></asp:Label></li>
+                                       <li><asp:RegularExpressionValidator ID="regexValidatorPost" runat="server" ControlToValidate="fileupldStatusPost" ErrorMessage="Only JPEG images are allowed" 
+                            ValidationExpression="(.*\.([Jj][Pp][Gg])|.*\.([Jj][Pp][Ee][Gg])$)" Display="Dynamic"/></li>
+                                       <li><span><img id="image_upload_previewPost" src="http://placehold.it/100x100" class="img-thumbnail" height="100" width="100" style="display:none"  /><i class="glyphicon glyphicon-remove onmousehover" id="RemoveUploadedFilePost" onclick="RemoveFilePost(); return false" style="color:red;display:none;top:33px;left:-13px"></i></span></li>
+            </ul>
+		  </div>	
+      </div>
+  </div>
+  </div>
+</div>      
+                
+	<!-- script references -->
+		<script src="../js/bootstrap.min.js"></script>
+		<script src="../js/scripts.js"></script>
+            
+            
+           </form>
+	</body>
+</html>

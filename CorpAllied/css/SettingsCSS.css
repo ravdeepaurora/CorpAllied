@@ -1,0 +1,37 @@
+﻿.show-image {
+    position: relative;
+    width:inherit;
+    height:inherit;
+    text-align:center;
+    display:block;
+   
+}
+.show-image:hover img{
+    opacity:0.5;
+}
+.show-image:hover input {
+    display: block;
+}
+.show-image input {
+    position:absolute;
+    display:none;
+}
+.show-image input.update {
+    top:0;
+    left:0;
+}
+.show-image input.delete {
+    top:0;
+    left:79%;
+}
+.imgaspectration
+{
+    display: block;
+    max-width:175px !important;
+    max-height:175px !important;
+    width: auto;
+    height: auto;
+    min-height:50px;
+    min-width:50px;
+    
+}
